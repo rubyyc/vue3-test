@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@next"></script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script>
+      const app = Vue.createApp({
+        data() {
+          return {
+            msg: "hello",
+            // flag: true
+            flag: [],
+            flag1: "",
+            selectMsg: "",
+            selectMsgArr: [],
+            selectMsgArr1: [],
+            options: [
+              {
+                text: "A",
+                value: "A"
+              },
+              {
+                text: "B",
+                value: "B"
+              },
+              {
+                text: "C",
+                value: "C"
+              },
+            ],
+            optionsObject: [
+              {
+                text: "A",
+                value: {name: 'A'}
+              },
+              {
+                text: "B",
+                value: {name: 'B'}
+              },
+              {
+                text: "C",
+                value: {name: 'C'}
+              },
+            ],
+          };
+        },
+        watch: {
+          flag(value) {
+            console.log("value", value);
+          },
+        },
+        methods: {
+          handleBtn() {},
+        },
+        mounted() {},
+        template: `
+      <div>
+        {{msg}} | <input v-model="msg" />
+      </div>
+      <hr/>
+      <div>
+        {{msg}} | <textarea v-model="msg"></textarea>
+      </div>
+      <hr/>
+      <div>
+        {{msg}} 
+        |jack: <input type="checkbox" v-model="flag" value="jack" />
+        |foo: <input type="checkbox" v-model="flag" value="foo" />
+        |dell: <input type="checkbox" v-model="flag" value="dell" />
+        |----{{flag}}
+      </div>
+      <hr/>
+      <div>
+        {{msg}} 
+        |jack: <input type="radio" v-model="flag1" value="jack" />
+        |foo: <input type="radio" v-model="flag1" value="foo" />
+        |dell: <input type="radio" v-model="flag1" value="dell" />
+        |----{{flag1}}
+      </div>
+      <hr/>
+      <div>
+        |{{selectMsg}}|
+        <select v-model="selectMsg">
+          <option value="" disabled>请选择内容</option>
+          <option value="A">A</option>
+          <option value="B">B</option>
+          <option value="C">C</option>
+        </select>
+      </div>
+      <hr/>
+      <div>
+        |{{selectMsgArr}}|
+        <select v-model="selectMsgArr" multiple>
+          <option value="A">A</option>
+          <option value="B">B</option>
+          <option value="C">C</option>
+        </select>
+      </div>
+      <hr/>
+      <div>
+        |{{selectMsgArr1}}|
+        <select v-model="selectMsgArr1" multiple>
+          <option v-for="item in optionsObject" :value="item.value">{{item.text}}</option>
+        </select>
+      </div>
+      `,
+      });
+      app.mount("#app");
+    </script>
+  </body>
+</html>

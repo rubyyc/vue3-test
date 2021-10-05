@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>按键修饰符</title>
+  <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+  <div id="app"></div>
+  <script>
+    const app =Vue.createApp({
+      data(){
+        return {
+        }
+      },
+      methods: {
+        handleKeyDown(){
+        console.log('handleKeyDown');
+        },
+        /**
+        * !表示错误和警告
+        * ? 表示询问语文题
+        * // 表示删除
+        * TODO 表示待办
+        */
+        // enter tab delete up down esc left right
+        handleEnter(){
+          console.log('handleEnter');
+        },
+        // 鼠标修饰符
+        mouseClick(){
+          console.log('mouseClick');
+        },
+        mouseClickLeft(){
+          console.log('mouseClickLeft');
+        },
+        mouseClickRight(){
+          console.log('mouseClickLeft');
+        },
+        mouseClickMid(){
+          console.log('mouseClickMid');
+        },
+        exactClick(){
+          console.log('精确');
+        }
+      },
+      mounted() {
+      },
+      template: `
+      <div @click.left="mouseClickLeft">
+          
+          每次按都触发:<input @keydown="handleKeyDown" />
+          仅当按下ENTER才触发:<input @keydown.enter="handleEnter" />
+          仅当按下ENTER才触发:<input @keydown.delete="handleEnter" />
+      </div>
+      <div @click.ctrl.exact="exactClick">
+          
+          每次按都触发:<input @keydown="handleKeyDown" />
+          仅当按下ENTER才触发:<input @keydown.enter="handleEnter" />
+          仅当按下ENTER才触发:<input @keydown.delete="handleEnter" />
+      </div>
+      `
+    })
+    app.mount('#app')
+  </script>
+</body>
+</html>

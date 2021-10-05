@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@next"></script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script>
+      const listEffect = () => {
+        const { reactive } = Vue;
+        const list = reactive([]);
+        const addItemToList = (item) => {
+          list.push(item);
+        };
+        return {
+          list,
+          addItemToList
+        }
+      };
+
+      const inputEffect = () => {
+        const { ref } = Vue;
+        const inputValue = ref("123");
+        const handleChange = (e) => {
+          inputValue.value = e.target.value;
+        };
+        return {
+          inputValue,
+          handleChange
+        }
+      };
+      const app = Vue.createApp({
+        setup() {
+          const { list,
+          addItemToList} = listEffect()
+          const {inputValue,
+          handleChange} = inputEffect()
+          return {
+            inputValue,
+            handleChange,
+            addItemToList,
+            list,
+          };
+        },
+        template: `
+      <div>
+       <input :value="inputValue" @input="handleChange" />
+        <div @click="addItemToList(inputValue)">点击</div>
+        <ul>
+          <li v-for="(item,index) in list" :key="index">{{item}}</li>
+          </ul>
+      </div>
+      `,
+      });
+      app.mount("#app");
+    </script>
+  </body>
+</html>

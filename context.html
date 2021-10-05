@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+  <div id="app"></div>
+  <script>
+    const app =Vue.createApp({
+      template: `
+      <div>
+        <child app="app"><h1>parent</h1></child>
+      </div>
+      `
+    })
+    app.component('child',{
+      // template: `
+      // <div>
+      // child
+      // </div>
+      // `,
+      setup(props,context){
+        const {h} = Vue
+        const { attrs,slots, emit} = context
+        console.log(attrs,slots,emit);
+        console.log(slots);
+        console.log(emit);
+        return () => h('div', {}, slots.default())
+      }
+    })
+    // app.component('child',{
+    //   template: `
+    //   <div>
+    //   child
+    //   </div>
+    //   `,
+    //   setup(props,context){
+    //     const { attrs,slots, emit} = context
+    //     console.log(attrs,slots,emit);
+    //     console.log(slots);
+    //     console.log(emit);
+    //   }
+    // })
+    app.mount('#app')
+  </script>
+</body>
+</html>

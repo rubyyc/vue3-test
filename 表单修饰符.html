@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form表单的修饰符</title>
+  <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+  <div id="app"></div>
+  <script>
+    const app =Vue.createApp({
+      data(){
+        return {
+          message: 'hello',
+          num: '',
+          str: ''
+        }
+      },
+      methods: {
+        handleBtn(){
+         
+        }
+      },
+      mounted() {
+      },
+      template: `
+      <div>
+        {{message}}
+        <input type="checkbox" v-model.lazy="message" true-value="hello" false-value="world" />
+      </div>
+      <hr />
+      <div>
+        {{typeof num}}
+        <input v-model.number="num" type="number" />
+      </div>
+      <hr />
+      <div>
+        {{str}}
+        <input v-model.trim="str" type="text" />
+      </div>
+      `
+    })
+    app.mount('#app')
+  </script>
+</body>
+</html>

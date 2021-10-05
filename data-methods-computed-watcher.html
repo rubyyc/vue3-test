@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue3</title>
+  <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+  <div id="app"></div>
+  <script>
+    const app =Vue.createApp({
+      data(){
+        return {
+          message: 'hello world',
+          count: 2,
+          price: 50
+        }
+      },
+      watch:{
+        price(curValue,preValue){
+          console.log('curValue',curValue);
+          console.log('preValue',preValue);
+          setTimeout(()=>{
+            console.log('price change');
+          },5000)
+        }
+      },
+      methods: {
+        handleBtn(){
+         console.log('click',this);
+        },
+        addItem(){
+        },
+        // 只要页面重新渲染，重新计算
+        getTotal(){
+          return this.price * this.count
+        }
+      },
+      computed:{
+        // 当计算属性依赖的内容发生变化时，重新计算，只有改price或count才变化，改message不会变化
+        total(){
+          return this.price * this.count
+        }
+      },
+      mounted() {
+      },
+      template: `
+      <div @click="handleBtn">{{message}}</div>
+      <div>{{count * price}}</div>
+      <div>{{total}}</div>
+      <div>{{getTotal()}}</div>
+      `
+    })
+
+    const vm = app.mount('#app')
+    console.log(vm);
+  </script>
+</body>
+</html>

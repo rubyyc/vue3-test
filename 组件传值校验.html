@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+  <div id="app"></div>
+  <script>
+    const app =Vue.createApp({
+      data(){
+        return {
+          msg: '123',
+          num: '123',
+          f: ()=>{
+            console.log('fffffff');
+          }
+        }
+      },
+      methods: {
+        handleBtn(){
+         
+        }
+      },
+      mounted() {
+      },
+      template: `
+      <div>
+        <test :contentFun="f" :content="msg"  />
+      </div>
+      `
+    })
+    app.component('test',{
+      // props: ['content'],
+      props: {
+        content: {
+          type: String,
+          default: () => {
+            return '默认值'
+          },
+          required: true,
+          validator: (value) => {
+            return value === '123'
+          }
+        },
+        contentFun: Function
+      },
+      methods: {
+        handleClick(){
+          console.log('handleClick');
+          this.contentFun()
+        }
+      },
+      template: `
+        <div>{{typeof content}}</div>
+        <div @click="handleClick">{{content}}</div>
+      `
+    })
+    app.mount('#app')
+  </script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>作用域插槽</title>
+    <script src="https://unpkg.com/vue@next"></script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script>
+      const app = Vue.createApp({
+        data() {
+          return {
+            count: "a",
+            text: "提交",
+          };
+        },
+        template: `
+      <layout v-slot="slotProps">
+        <span>{{slotProps.item}}</span>
+      </layout>
+      <layout v-slot="{item}">
+        <span>{{item}}</span>
+      </layout>
+      `,
+      });
+
+      app.component("layout", {
+        methods: {
+          handleClick() {
+            console.log("handleClick");
+          },
+        },
+        data() {
+          return {
+            list: ["1", "2", "3"],
+          };
+        },
+        template: `
+        <div>
+          <slot v-for="item in list" :item="item"></slot>
+        </div>
+        `,
+      });
+      app.mount("#app");
+    </script>
+  </body>
+</html>

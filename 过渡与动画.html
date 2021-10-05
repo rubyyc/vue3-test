@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>过渡与动画</title>
+  <script src="https://unpkg.com/vue@next"></script>
+  <style>
+    .animation{
+      animation: leftToRight 3s;
+    }
+
+    @keyframes leftToRight{
+      0%{
+        transform: translateX(-100px);
+      }
+      50%{
+        transform: translateX(-50px);
+      }
+      0%{
+        transform: translateX(0);
+      }
+    }
+
+    .transition{
+      transition: 3s background-color ease;
+    }
+
+    .blue{
+      background-color: pink;
+    }
+
+    .green{
+      background-color: green;
+    }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+  <script>
+    const app =Vue.createApp({
+      data(){
+        return {
+          animate: {
+            animation: true,
+            transition: true,
+            blue: true,
+            green: false
+          }
+        }
+      },
+      methods: {
+        handleClick(){
+          this.animate.animation = !this.animate.animation
+          // this.animate.transition = !this.animate.transition
+          this.animate.green = !this.animate.green
+        }
+      },
+      mounted() {
+      },
+      template: `
+      <div>
+        <div :class="animate">hello world</div>
+        <div :class="animate">hello world</div>
+        <div @click="handleClick">切换</div>
+      </div>
+      `
+    })
+    app.mount('#app')
+  </script>
+</body>
+</html>

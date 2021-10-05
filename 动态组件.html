@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>作用域插槽</title>
+    <script src="https://unpkg.com/vue@next"></script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script>
+      const app = Vue.createApp({
+        data() {
+          return {
+            currentItem: "input-item",
+          };
+        },
+        methods: {
+          handleClick() {
+            this.currentItem =
+              this.currentItem === "input-item" ? "common-item" : "input-item";
+          },
+        },
+        template: `
+      <input-item v-show="currentItem === 'input-item'" />
+        
+      <common-item  v-show="currentItem === 'common-item'" />
+      <button @click="handleClick">切换</button>
+      <div>动态组件</div>
+      <component :is="currentItem" />
+      
+      `,
+      });
+
+      app.component("input-item", {
+        template: `
+        <div>
+          <input />
+        </div>
+        `,
+      });
+
+      app.component("common-item", {
+        template: `
+        <div>
+          hello world
+        </div>
+        `,
+      });
+
+      app.mount("#app");
+    </script>
+  </body>
+</html>

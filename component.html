@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue3</title>
+  <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+  <div id="app"></div>
+  <script>
+    const app =Vue.createApp({
+      data(){
+        return {
+          list: [],
+          inputValue: '',
+          message: 'hello world',
+          type: 'click'
+        }
+      },
+      methods: {
+        handleBtn(){
+         
+        },
+        addItem(){
+        }
+      },
+      mounted() {
+      },
+      template: `
+      <div v-once>{{message}}</div>
+      <div :[type]="handleBtn">{{message}}</div>
+      <div @click.prevent="handleBtn">{{message}}</div>
+      `
+    })
+
+    const vm = app.mount('#app')
+    console.log(vm);
+  </script>
+</body>
+</html>

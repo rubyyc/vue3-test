@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@next"></script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script>
+      // mixin中的data优先级低
+      // 生命周期函数先执行
+      // 可注册为全局的mixin
+      // 自定义属性的优先级的设置
+      const Mixin = {
+        data() {
+          return {
+            // number: 2,
+          };
+        },
+      };
+      const app = Vue.createApp({
+        data() {
+          return {
+            // number: 1,
+          };
+        },
+        mixins: [Mixin],
+        methods: {
+          handleBtn() {
+            console.log("handleClick");
+          },
+        },
+        number: 3333,
+        mounted() {},
+        template: `
+      <div>
+        {{number}}
+        {{this.$options.number}}
+        <div @click="handleBtn">点击</div>
+      </div>
+      `,
+      });
+      app.mixin({
+        data() {
+          return {
+            number: 888888,
+          };
+        },
+      });
+      app.config.optionMergeStrategies.number = (mixValue,appValue)=>{
+        return mixValue || appValue
+      }
+      app.mount("#app");
+    </script>
+  </body>
+</html>

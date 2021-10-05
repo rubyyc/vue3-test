@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>父子组件通信</title>
+    <script src="https://unpkg.com/vue@next"></script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script>
+      const app = Vue.createApp({
+        data() {
+          return {
+            count: 1,
+            count1: 1
+          };
+        },
+        template: `
+      <div>
+        <counter v-model:count="count" v-model:count1="count1" />
+      </div>
+      `,
+      });
+
+      app.component("counter", {
+        props: ['count','count1'],
+        methods: {
+          addOneClick(){
+            console.log('addOne...');
+            this.$emit('update:count', this.count + 3)
+          },
+          addOneClickOne(){
+            console.log('addOne...');
+            this.$emit('update:count1', this.count1 + 3)
+          }
+        },
+        template: `
+         <div @click="addOneClick">{{count}}</div>
+         <div @click="addOneClickOne">{{count1}}</div>
+        `,
+      });
+      app.mount("#app");
+    </script>
+  </body>
+</html>

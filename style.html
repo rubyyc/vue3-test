@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .red{
+      color: red;
+    }
+    .green{
+      color: green;
+    }
+    .yellow{
+      color: yellow;
+    }
+    .pink{
+      color: pink;
+    }
+  </style>
+  <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+  <div id="app"></div>
+  <script>
+    const app =Vue.createApp({
+      data(){
+        return {
+          message: 'Style样式绑定',
+          classString: 'red',
+          classObj: {red: true, green: true},
+          classArray: ['red','green', {yellow: true},{pink: true}],
+          styleString: 'color:red;',
+          styleObject: {
+            color:'red'
+          }
+        }
+      },
+      methods: {
+        handleBtn(){
+         this.classString = 'green'
+        }
+      },
+      mounted() {
+      },
+      template: `
+      <div :class="classString">
+        {{message}}
+      </div>
+      <button @click="handleBtn">变绿</button>
+      <div :class="classObj">
+        {{message}}
+      </div>
+      <div :class="classArray">
+        {{message}}
+      </div>
+      <demo class="green" />
+      <h1>行内样式</h1>
+      <div style="color:pink">pink</div>
+      <div :style="styleString">pink</div>
+      <div :style="styleObject">pink</div>
+      `
+    })
+
+    app.component('demo',{
+      template: `<div :class="$attrs.class">single</div><div class="red">single</div>`
+    })
+    app.mount('#app')
+  </script>
+</body>
+</html>
